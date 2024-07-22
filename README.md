@@ -36,7 +36,7 @@ python app.py
 ```bash
 python train_main.py
 ```
-※注意:実行環境によって[`train.py`](./train_main.py)のBatch sizeを変更する必要があります。デフォルトでは50になっています。
+※注意:実行環境によって[`script/train/yolo_train.py`]([./script/train/yolo_train.py](https://github.com/takusandayooo/ObjectDetectGame/blob/b6400d64c0abbaee334ad0fb00bd31d7e2e7efec/script/train/yolo_train.py#L21))のBatch sizeを変更する必要があります。デフォルトでは50になっています。
 
 ## ゲーム遷移
 ### 1. ゲームスタート
