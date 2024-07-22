@@ -313,11 +313,6 @@ def handle_image(image):
 
 
 if __name__ == "__main__":
-    # TODO: 最終的には、以下のコードをコメントアウトする
-    path = os.getcwd().split("/")
-    if path[-1] != "main":
-        os.chdir("main")
-        print("カレントディレクトリを変更しました")
     # NOTE: カウントの初期化
     count = 0
     socketio.run(app, debug=True)
