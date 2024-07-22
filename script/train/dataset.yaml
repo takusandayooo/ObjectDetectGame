@@ -1,0 +1,8 @@
+train: /data/train/dataSet/images/train #絶対パスを指定する｡
+val: /data/train/dataSet/images/val #絶対パスを指定する。
+test: # test images (optional)
+
+# Classes
+names:
+  0: people
+  1: other

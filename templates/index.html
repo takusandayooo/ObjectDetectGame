@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>認識ゲーム</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      #startButton {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #startButton:hover {
+        background-color: #7baf7d;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>認識ゲーム</h1>
+    <p></p>
+
+    <!-- <button></button> --><button
+      id="startButton"
+      onclick="location.href='./select_model'"
+    >
+      ゲームを始める
+    </button>
+    <script>
+      function startGame() {
+        // ゲームを開始するための処理をここに追加
+        alert("ゲームが始まります！");
+      }
+    </script>
+  </body>
+</html>

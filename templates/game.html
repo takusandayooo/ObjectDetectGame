@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // ドキュメント全体に対するイベントリスナー
+        document.addEventListener("keydown", function (event) {
+          // Enterキーが押された場合
+          if (event.key === "Enter") {
+            event.preventDefault(); // デフォルトの動作を防ぐ
+            // 任意のURLに遷移
+            window.location.href = "./gameclear";
+          }
+        });
+      });
+    </script>
+    <style>
+      #label,
+      #score,
+      #error_count {
+        font-size: 50px;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+        padding: 10px;
+        margin: 0;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camera Stream</title>
+  </head>
+  <body>
+    <audio id="snake" src="/static/snake.mp3"></audio>
+    <audio id="person" src="/static/bi.mp3"></audio>
+    <audio id="no_person" src="/static/race.mp3"></audio>
+
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display: none"></canvas>
+    <img id="output" width="640" height="480" />
+    <p id="label"></p>
+    <p id="score"></p>
+    <p id="error_count"></p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+      var socket = io();
+      var video = document.getElementById("video");
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+      var output = document.getElementById("output");
+      var frame = 0;
+
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then(function (stream) {
+          video.srcObject = stream;
+        })
+        .catch(function (err) {
+          console.log("An error occurred: " + err);
+        });
+
+      video.addEventListener("play", function () {
+        setInterval(function () {
+          frame++;
+          if (frame % 5 === 0) {
+            context.drawImage(video, 0, 0, 640, 480);
+            var imageData = canvas.toDataURL("image/jpeg");
+            socket.emit("image", imageData);
+          } else {
+            // 画像をそのまま表示する
+            output.srcObject = video.srcObject;
+          }
+        }, 100); // 100 milliseconds interval
+      });
+
+      socket.on("processed_image", function (image) {
+        output.src = image;
+      });
+      socket.on("redirect", function (data) {
+        window.location = data.url; // 指示されたURLにリダイレクト
+      });
+      socket.on("label_and_score", function (data) {
+        var label = data.label;
+        var score = data.score.toFixed(2);
+        var error_count = Math.round(data.error_count).toFixed(2);
+        console.log(
+          "Label: " + label + ", Score: " + score,
+          ", Error_count: " + error_count
+        );
+        if (label === "person" && error_count == 1) {
+          document.getElementById("snake").pause();
+          document.getElementById("snake").play();
+        } else if (label == "person" && 1 <= error_count) {
+          document.getElementById("person").pause();
+          document.getElementById("person").play();
+        } else {
+          document.getElementById("no_person").pause();
+          document.getElementById("no_person").play();
+        }
+        // Update the content of the <p> tags
+        document.getElementById("label").textContent = "Label: " + label;
+        document.getElementById("score").textContent = "Score: " + score;
+        document.getElementById("error_count").textContent =
+          "Error_count: " + error_count;
+      });
+    </script>
+  </body>
+</html>

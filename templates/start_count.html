@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <audio id="mySound" src="/static/Countdown06-1.mp3"></audio>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            height: 100vh; /* Ensure body takes full height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            margin: 0;
+        }
+        #countdown {
+            font-size: 100px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            let cnt = 3; //リダイレクトまでの秒数
+            const mySound = document.getElementById('mySound');
+            mySound.currentTime = 0; // 再生位置をリセット
+            mySound.play();
+            $('#countdown').text(cnt);
+            const interval = setInterval(function(){
+                cnt--;
+                $('#countdown').text(cnt);
+                if(cnt <= 0){ //0になった際の処理
+                    clearInterval(interval);
+                    window.location.href = "./game";
+                }
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+    <p>ゲームスタートまで 
+        <br><span id="countdown"></span> 秒</p>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>認識ゲーム</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      #modelButton {
+        padding: 10px 20px;
+        font-size: 12px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #modelButton:hover {
+        background-color: #7baf7d;
+      }
+    </style>
+    <script>
+      function handleStart() {
+        window.location.href = "/start_count";
+      }
+
+      function setModelFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedModel = urlParams.get("model");
+        if (selectedModel) {
+          document.getElementById("modelSelect").value = selectedModel;
+        }
+      }
+
+      window.onload = setModelFromURL;
+    </script>
+  </head>
+  <body>
+    <h1>認識</h1>
+    <button id="modelButton" onclick="handleStart()">スタート</button>
+    <p></p>
+    <form id="modelForm" action="/select_model" method="GET">
+      <select id="modelSelect" name="model">
+        <option>未学習のモデル</option>
+        <option value="second">学習済みモデル</option>
+      </select>
+      <button type="submit">選択</button>
+    </form>
+  </body>
+</html>

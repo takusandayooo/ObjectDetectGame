@@ -1,0 +1,7 @@
+opencv-python 
+flask
+flask_socketio
+ultralytics
+torch
+pytorch_lightning
+scikit-image

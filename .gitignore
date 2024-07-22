@@ -1,0 +1,7 @@
+data/train/photos/*.jpg
+*.pt
+data/train/dataSet/images/train/*.jpg
+data/train/dataSet/labels/train/*.txt
+data/train/dataSet/images/val/*.jpg
+data/train/dataSet/labels/val/*.txt
+runs/detect/
