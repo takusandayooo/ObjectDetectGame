@@ -36,6 +36,7 @@ python app.py
 ```bash
 python train_main.py
 ```
+※注意:実行環境によって[`train.py`](./train_main.py)のBatch sizeを変更する必要があります。デフォルトでは50になっています。
 
 ## ゲーム遷移
 ### 1. ゲームスタート
